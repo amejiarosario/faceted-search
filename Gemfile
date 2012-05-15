@@ -11,6 +11,7 @@ gem 'haml-rails'
 
 gem 'thin'
 gem 'pg'
+gem 'devise'
 
 
 group :development, :test do
@@ -33,7 +34,10 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  
   gem 'twitter-bootstrap-rails'
+  # rails g bootstrap:install
+  # rails g bootstrap:layout application fluid
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
