@@ -1,0 +1,57 @@
+%h1 Listing cables
+
+%table
+  %tr
+    %th Filename
+    %th Level
+    %th Part type
+    %th Item number
+    %th Mfg part number
+    %th Item description
+    %th Type
+    %th Conductor
+    %th Number pairs
+    %th Insulation
+    %th Jacket
+    %th Shielding
+    %th Wire gauge
+    %th Diameter
+    %th Putup
+    %th Color
+    %th Multi
+    %th Stranding
+    %th Kevlar core
+    %th Pitch
+    %th
+    %th
+    %th
+
+  - @cables.each do |cable|
+    %tr
+      %td= cable.filename
+      %td= cable.level
+      %td= cable.part_type
+      %td= cable.item_number
+      %td= cable.mfg_part_number
+      %td= cable.item_description
+      %td= cable.type
+      %td= cable.conductor
+      %td= cable.number_pairs
+      %td= cable.insulation
+      %td= cable.jacket
+      %td= cable.shielding
+      %td= cable.wire_gauge
+      %td= cable.diameter
+      %td= cable.putup
+      %td= cable.color
+      %td= cable.multi
+      %td= cable.stranding
+      %td= cable.kevlar_core
+      %td= cable.pitch
+      %td= link_to 'Show', cable
+      %td= link_to 'Edit', edit_cable_path(cable)
+      %td= link_to 'Destroy', cable, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Cable', new_cable_path

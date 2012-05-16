@@ -1,0 +1,70 @@
+= form_for @cable do |f|
+  -if @cable.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@cable.errors.count, "error")} prohibited this cable from being saved:"
+      %ul
+        - @cable.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :filename
+    = f.text_field :filename
+  .field
+    = f.label :level
+    = f.number_field :level
+  .field
+    = f.label :part_type
+    = f.text_field :part_type
+  .field
+    = f.label :item_number
+    = f.text_field :item_number
+  .field
+    = f.label :mfg_part_number
+    = f.text_field :mfg_part_number
+  .field
+    = f.label :item_description
+    = f.text_field :item_description
+  .field
+    = f.label :type
+    = f.text_field :type
+  .field
+    = f.label :conductor
+    = f.text_field :conductor
+  .field
+    = f.label :number_pairs
+    = f.text_field :number_pairs
+  .field
+    = f.label :insulation
+    = f.text_field :insulation
+  .field
+    = f.label :jacket
+    = f.text_field :jacket
+  .field
+    = f.label :shielding
+    = f.text_field :shielding
+  .field
+    = f.label :wire_gauge
+    = f.text_field :wire_gauge
+  .field
+    = f.label :diameter
+    = f.text_field :diameter
+  .field
+    = f.label :putup
+    = f.text_field :putup
+  .field
+    = f.label :color
+    = f.text_field :color
+  .field
+    = f.label :multi
+    = f.text_field :multi
+  .field
+    = f.label :stranding
+    = f.text_field :stranding
+  .field
+    = f.label :kevlar_core
+    = f.text_field :kevlar_core
+  .field
+    = f.label :pitch
+    = f.text_field :pitch
+  .actions
+    = f.submit 'Save'

@@ -17,8 +17,8 @@ development:
   encoding: unicode
   database: faceted_search_development
   pool: 5
-  username: faceted_search
-  password:
+  username: postgres
+  password: recrins
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +43,13 @@ test:
   encoding: unicode
   database: faceted_search_test
   pool: 5
-  username: faceted_search
-  password:
+  username: postgres
+  password: recrins
 
 production:
   adapter: postgresql
   encoding: unicode
   database: faceted_search_production
   pool: 5
-  username: faceted_search
-  password:
+  username: postgres
+  password: recrins

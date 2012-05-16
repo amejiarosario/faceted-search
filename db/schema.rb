@@ -11,7 +11,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515014834) do
+ActiveRecord::Schema.define(:version => 20120516041433) do
+
+  create_table "cables", :force => true do |t|
+    t.string   "filename"
+    t.integer  "level"
+    t.string   "part_type"
+    t.string   "item_number",      :null => false
+    t.string   "mfg_part_number"
+    t.string   "item_description"
+    t.string   "type"
+    t.string   "conductor"
+    t.string   "number_pairs"
+    t.string   "insulation"
+    t.string   "jacket"
+    t.string   "shielding"
+    t.string   "wire_gauge"
+    t.string   "diameter"
+    t.string   "putup"
+    t.string   "color"
+    t.string   "multi"
+    t.string   "stranding"
+    t.string   "kevlar_core"
+    t.string   "pitch"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "cables", ["item_number"], :name => "index_cables_on_item_number"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
