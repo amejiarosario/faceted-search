@@ -1,0 +1,4 @@
+postgres cannot access the server configuration file "/usr/pgsql2/data/postgresql.conf": No such file or directory
+LOG:  database system was shut down at 2012-05-17 00:24:03 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
