@@ -57,7 +57,7 @@ describe "cables/index" do
      assert_select "tr>td", :text => "Item Number".to_s, :count => 2
     # assert_select "tr>td", :text => "Mfg Part Number".to_s, :count => 2
      assert_select "tr>td", :text => "Item Description".to_s, :count => 2
-    # assert_select "tr>td", :text => "Type".to_s, :count => 2
+     assert_select "tr>td", :text => "Type".to_s, :count => 2
     # assert_select "tr>td", :text => "Conductor".to_s, :count => 2
     # assert_select "tr>td", :text => "Number Pairs".to_s, :count => 2
     # assert_select "tr>td", :text => "Insulation".to_s, :count => 2

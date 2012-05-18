@@ -26,7 +26,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'spork'
+  gem "spork-rails"
+  gem "autotest-rails"
 end
 
 # Gems used only for assets and not required
