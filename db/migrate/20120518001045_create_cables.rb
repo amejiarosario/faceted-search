@@ -4,7 +4,7 @@ class CreateCables < ActiveRecord::Migration
       t.string :filename
       t.integer :level
       t.string :part_type
-      t.string :item_number
+      t.string :item_number, null: false
       t.string :mfg_part_number
       t.string :item_description
       t.string :type
