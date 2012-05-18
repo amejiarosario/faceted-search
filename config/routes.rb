@@ -1,4 +1,6 @@
 FacetedSearch::Application.routes.draw do
+  resources :cables
+
   get "home/index"
 
   devise_for :users

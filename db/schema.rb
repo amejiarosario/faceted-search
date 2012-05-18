@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517233523) do
+ActiveRecord::Schema.define(:version => 20120518001045) do
 
   create_table "cables", :force => true do |t|
     t.string   "filename"
     t.integer  "level"
     t.string   "part_type"
-    t.string   "item_number",      :null => false
+    t.string   "item_number"
     t.string   "mfg_part_number"
     t.string   "item_description"
     t.string   "type"
@@ -30,15 +30,12 @@ ActiveRecord::Schema.define(:version => 20120517233523) do
     t.string   "diameter"
     t.string   "putup"
     t.string   "color"
-    t.string   "multi_"
     t.string   "stranding"
     t.string   "kevlar_core"
     t.string   "pitch"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
-
-  add_index "cables", ["item_number"], :name => "index_cables_on_item_number"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
