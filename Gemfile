@@ -15,16 +15,16 @@ gem 'devise'
 
 
 group :development, :test do
-  gem 'rspec'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'pry'
 end
 
 group :test do
-  gem 'faker'
-  gem 'capybara'
+  gem 'rspec'
   gem 'guard-rspec'
+  gem 'faker'
+  gem 'factory_girl_rails'
+  gem 'capybara'
   gem 'launchy'
   gem 'spork'
 end
