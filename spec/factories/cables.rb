@@ -22,6 +22,17 @@ FactoryGirl.define do
     stranding "19/30"
     kevlar_core "No"
     pitch "0.050"
+    
+    factory :cable2 do
+      part_type "Assembly"
+      item_number "10511-1357-01"
+      mfg_part_number "B        C31754"
+      type "flat"
+      #empty spaces testing
+      number_pairs ""
+      pitch "  0.040"
+      kevlar_core "  "
+    end
+    
   end
-  
 end
