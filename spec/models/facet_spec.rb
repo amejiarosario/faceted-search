@@ -14,10 +14,11 @@ describe Facet do
   it "gets relevance for each column based on the data" do
     
     # create 10 cables
-    9.times do
+    5.times do
       FactoryGirl.create(:cable)
+      FactoryGirl.create(:cable2)
     end
-    FactoryGirl.create(:cable2)
+    
     
     # perform operation
     actual = Facet.calculate(Cable)
@@ -44,13 +45,23 @@ describe Facet do
         actual["type"]["relevance"].should be_close 2, 0.1
       end
       
-      it "should get relevance=0 with all null values"
-      it "should order by relevance"
+      it "should get relevance=0 with all null values" do
+        actual["item_description"]["relevance"].should be_close 0, 0.1
+      end
+      
       describe "Normal Distribution (Gauss)" do
-        it "return 0 for 0% different values"
-        it "returns 0 for 100% of different values"
-        it "return 1 for 50% of different values" 
-      end  
+        it "should have a relevance=0 when all the values are the same" do
+          actual["item_number"]["relevance"].should be_close 0, 0.1
+        end
+              
+        it "return >1 for 50% of different values" do
+          actual["item_number"]["relevance"].should be_close 2, 0.1
+        end
+         
+      end
+      
+      it "should order by relevance"
+        
     end
   end  
 end

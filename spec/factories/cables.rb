@@ -8,7 +8,7 @@ FactoryGirl.define do
     part_type "Cable and Wire" 
     sequence(:item_number) {|n| "10012-0703-#{n.to_s}"}
     sequence(:mfg_part_number) {|n| "E        C51116-#{n.to_s}"}
-    item_description "CABLE ASSY, ANT PA CONTROL"
+    item_description ""
     type "coax"
     conductor "6"
     number_pairs "2"
@@ -25,8 +25,8 @@ FactoryGirl.define do
     
     factory :cable2 do
       part_type "Assembly"
-      item_number "10511-1357-01"
-      mfg_part_number "B        C31754"
+      #item_number "10511-1357-01"
+      #mfg_part_number "B        C31754"
       type "flat"
       #empty spaces testing
       number_pairs ""
