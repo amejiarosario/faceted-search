@@ -31,13 +31,13 @@ describe Facet do
     
     describe "relevance calculations" do
       it "should have the correct number of options" do
-        actual["type"]["options"].should eq(["coax", "flat"])
+        actual["type"]["options"].keys.should eq(["flat","coax"])
         actual["type"]["options"].count.should be 2
         actual["item_number"]["options"].count.should be 10
       end
       
       it "should omit empty options" do
-        actual["number_pairs"]["options"].should eq(["2"])
+        actual["number_pairs"]["options"].keys.should eq(["2"])
         actual["number_pairs"]["options"].count.should be 1
         actual["pitch"]["options"].count.should be 2
         actual["kevlar_core"]["options"].count.should be 1

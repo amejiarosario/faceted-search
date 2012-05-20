@@ -23,10 +23,9 @@ class Facet < ActiveRecord::Base
         options.each do |n|
           options_hash[n] = Cable.where(name.to_sym => n).count
         end
-        #puts "options_hash #{options_hash}"
         
-        
-        binding.pry
+        #puts "\n**options_hash <<#{options_hash}>> for <<#{name}>>"
+        #binding.pry
         
         hash[name] = { 
           "relevance" => relevance(options_hash, total),
@@ -39,8 +38,9 @@ class Facet < ActiveRecord::Base
     end
     
     def self.relevance(options_hash, total)
-      #puts "options_hash #{options_hash}; total #{total}"
-      if total && total < 1
+      puts "options_hash #{options_hash}; total #{total}"
+      #binding.pry
+      if total && total < 1 || options_hash.blank?
         return 0.0
       end
       per = median(options_hash.values.map{|n| Float(n)*100/total})
