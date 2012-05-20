@@ -1,6 +1,16 @@
 describe Facet do
-  it "should get column names from model and relevance" do
-    actual = Facet.calculate(Cable)
+  before :each do
+    # create 10 cables
+    4.times do
+      FactoryGirl.create(:cable)
+      FactoryGirl.create(:cable2)
+    end
+    FactoryGirl.create(:cable, type: "multi") 
+    FactoryGirl.create(:cable2, type: "multi")
+  end
+  
+  it "should include column names from model and relevance" do
+    actual = Facet.calculate(Cable) # FIXME should pass Cable.all, so it can be get facets from nested elements
     actual.each do |k,v|
       Cable.column_names.should include k
       #puts "#{k} => #{v}"
@@ -10,19 +20,13 @@ describe Facet do
   end
   
   it "gets relevance for each column based on the data" do
-    # create 10 cables
-    5.times do
-      FactoryGirl.create(:cable)
-      FactoryGirl.create(:cable2)
-    end
-    
     # perform operation
     actual = Facet.calculate(Cable)
     
     describe "relevance calculations" do
       it "should have the correct number of options" do
-        actual["type"]["options"].keys.should eq(["flat","coax"])
-        actual["type"]["options"].count.should be 2
+        actual["type"]["options"].keys.sort.should eq(["flat","coax", "multi"].sort)
+        actual["type"]["options"].count.should be 3
         actual["item_number"]["options"].count.should be 10
       end
       
@@ -33,36 +37,47 @@ describe Facet do
         actual["kevlar_core"]["options"].count.should be 1
       end
       
-      it "should get relevance > 1 for >1 distint values" do
-        actual["type"]["relevance"].should be_within(0.3).of(10)
-      end
-      
-      it "should get relevance=0 with all null values" do
-        actual["item_description"]["relevance"].should be_within(0.3).of(0)
-      end
-      
       describe "Normal Distribution (Gauss)" do
-        it "should get relevance=0 with all values equal" do
-          actual["filename"]["relevance"].should be_within(0.3).of(0)  
+        
+        it "return relevance = #items for 50% of different values" do
+          actual["type"]["relevance"].should be_within(1.8).of(8)
+          actual["part_type"]["relevance"].should be_within(0.3).of(10)
+          actual["number_pairs"]["relevance"].should be_within(1.8).of(5)
         end
         
-        it "should have a relevance=0 when all the values are the same" do
+        it "should get relevance=0 with all NULL values" do
+          actual["item_description"]["relevance"].should be_within(0.3).of(0)
+        end
+        
+        it "should get relevance=0 with ALL values EQUAL" do
+          actual["filename"]["relevance"].should be_within(0.3).of(0)  
+          actual["level"]["relevance"].should be_within(0.3).of(0)  
+          actual["conductor"]["relevance"].should be_within(0.3).of(0)  
+          actual["wire_gauge"]["relevance"].should be_within(0.3).of(0)  
+        end
+        
+        it "should have a relevance=0 when the values are ALL DIFFERENT" do
           actual["item_number"]["relevance"].should be_within(0.3).of(0) #be_close 0, 0.1
+          actual["mfg_part_number"]["relevance"].should be_within(0.3).of(0) #be_close 0, 0.1
+          actual["id"]["relevance"].should be_within(0.3).of(0) #be_close 0, 0.1
         end
               
-        it "return >1 for 50% of different values" do
-          actual["item_number"]["relevance"].should be_within(0.3).of(0) #be_close 2, 0.1
+        it "should have relevance intermediate" do
+          actual["kevlar_core"]["relevance"].should be_within(0.3).of(5) #be_close 2, 0.1
         end
-         
       end
       
       describe "show options count" do 
         it "should have the options count" do
-          actual["type"]["options"].should eq({"coax"=>5, "flat"=>5})
+          actual["type"]["options"].sort.should eq({"coax"=>4, "flat"=>4, "multi"=>2}.sort)
         end
       end
       
-      it "should order by relevance"
+      describe "sorting" do
+        it "should order by relevance" do
+          actual.keys[0..2].should eq(%w|part_type type number_pairs|)
+        end
+      end
         
     end
   end  

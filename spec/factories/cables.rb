@@ -25,13 +25,13 @@ FactoryGirl.define do
     
     factory :cable2 do
       part_type "Assembly"
-      #item_number "10511-1357-01"
-      #mfg_part_number "B        C31754"
       type "flat"
-      #empty spaces testing
       number_pairs ""
       pitch "  0.040"
       kevlar_core "  "
+      #item_number "10511-1357-01"
+      #mfg_part_number "B        C31754"
+      #empty spaces testing
     end
     
   end
