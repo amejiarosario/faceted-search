@@ -38,12 +38,12 @@ class Facet < ActiveRecord::Base
     end
     
     def self.relevance(options_hash, total)
-      puts "options_hash #{options_hash}; total #{total}"
+      #puts "options_hash #{options_hash}; total #{total}"
       #binding.pry
       if total && total < 1 || options_hash.blank?
         return 0.0
       end
-      per = median(options_hash.values.map{|n| Float(n)*100/total})
+      per = median( options_hash.values.map { |n| Float(n)*100/total } )
       options_hash.values.inject(:+) * gauss(per)
     end
     
