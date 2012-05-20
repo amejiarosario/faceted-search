@@ -7,53 +7,54 @@ class Facet < ActiveRecord::Base
   private
     def self.create_hash(model)
       hash = {}
-      empty_values = 0
       
       total = model.count
       
       model.column_names.each do |name|
-        nil_values = 0
+        #puts "name #{name}"
         # get options
-        options_name = model.select(name.to_sym)
-          .uniq.map { |c| c.send(name) if c.send(name)}
-          .delete_if do |n|
-            nil_values +=1 
-            n.nil? || !(n =~ /\w/) 
-        end
-                
-        options = {}
-        options_name.each do |n|
-          count = Cable.where(name.to_sym => n).count
-          options[n] = count
-        end  
+        options = model.select(name.to_sym)
+          .uniq.map { |c| c.send(name)}
+          .delete_if { |n| n.nil? || n.blank? }
+          
+        #puts "options>#{options}"
         
-        puts "29 options=#{options}"
-        puts "30 options_name=#{options_name}"
+        options_hash = {}
+        options.each do |n|
+          options_hash[n] = Cable.where(name.to_sym => n).count
+        end
+        #puts "options_hash #{options_hash}"
+        
+        
+        binding.pry
+        
         hash[name] = { 
-          "relevance" => relevance(options, total, nil_values),
-          "options" => options 
+          "relevance" => relevance(options_hash, total),
+          "options" => options_hash 
         }
       end
+      
+      #puts hash
       hash    
     end
     
-    def self.relevance(options, total, nil_values)
+    def self.relevance(options_hash, total)
+      #puts "options_hash #{options_hash}; total #{total}"
       if total && total < 1
         return 0.0
       end
-      # get median percentage
-      puts "#{options}, #{total}, #{nil_values}"
-      median_per = median(options.values.map{|n| Float(n)*100/10 })
-      puts "median_per=#{median_per}"
-      puts "relevance (options.values.inject(:+)) = #{options.values.inject(:+)}"
-      options.values.inject(:+) * gauss(median_per/total)
+      per = median(options_hash.values.map{|n| Float(n)*100/total})
+      options_hash.values.inject(:+) * gauss(per)
     end
     
     def self.gauss(percentage)
+      #puts "percentage=#{percentage}"
+      percentage ||= 0
       34/Math::sqrt(2*Math::PI*180)*Math::E**(-0.5*(percentage-50)**2/180)
     end
     
     def self.median(array)
+      #puts "array #{array}"
       array.sort[array.count/2-1]
     end
 end
