@@ -25,6 +25,7 @@ class Facet
           "relevance" => relevance(options_hash, total),
           "options" => options_hash 
         }
+        puts "name=#{name}; options=#{options_hash}; relevance=#{relevance(options_hash, total)}"
       end
       #sort_by(hash,"relevance")    
       hash    

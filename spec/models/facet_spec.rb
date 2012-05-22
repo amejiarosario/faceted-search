@@ -39,10 +39,19 @@ describe Facet do
       
       describe "Normal Distribution (Gauss)" do
         
-        it "return relevance = #items for 50% of different values" do
-          actual["type"]["relevance"].should be_within(1.8).of(8)
-          actual["part_type"]["relevance"].should be_within(0.3).of(10)
-          actual["number_pairs"]["relevance"].should be_within(1.8).of(5)
+        describe "relevant results" do
+          it "has 2 options 50-50%" do
+            actual["part_type"]["relevance"].should be_within(0.3).of(10)
+          end
+          
+          it "has 3 options 40-40-30%", :current => true  do
+            actual["type"]["relevance"].should be_within(1.8).of(8)
+          end
+          
+          it "has 1 option 50% and the rest NULL" do
+            actual["number_pairs"]["relevance"].should be_within(1.8).of(5)
+          end
+          
         end
         
         it "should get relevance=0 with all NULL values" do
