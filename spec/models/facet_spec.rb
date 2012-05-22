@@ -31,7 +31,7 @@ describe Facet do
     it "options should be an array" do
       actual = FacetProc.calculate(Cable.all)
       actual.each do |v|
-        v.options.class.should eq(Array)
+        v.options.class.should eq(Hash)
       end      
     end
   end
@@ -55,11 +55,15 @@ describe Facet do
     
     it "should return the right number of options(flat,coax,multi) for the column 'type'" do
       @arr.each do |facet|
-        facet.options.should =~ %w[flat coax multi] if facet.name == "type"
+        facet.options.keys.should =~ %w[flat coax multi] if facet.name == "type"
       end
     end
 
-    it "should have options count ('coax'=>4, 'flat'=>4, 'multi'=>2)"
+    it "should have options count ('coax'=>4, 'flat'=>4, 'multi'=>2)" do
+      @arr.each do |facet|
+        facet.options.should == {'coax' => 4, 'flat' => 4, 'multi' => 2} if facet.name == "type"
+      end
+    end
     
     describe "calculate relevance" do
       it "should have relevance=0 +/- 1 with 100% different values (item_number, mfg_part_number, id)"
