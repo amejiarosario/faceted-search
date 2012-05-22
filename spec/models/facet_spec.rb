@@ -22,18 +22,16 @@ describe Facet do
     it "should include column names from model and relevance" do
       actual = FacetProc.calculate(Cable.all) # FIXME should pass Cable.all, so it can be get facets from nested elements
       actual.each do |v|
-        Cable.column_names.should include k
-        #puts "#{k} => #{v}"
-        v.keys.should include "relevance"
-        v.keys.should include "options"
-        v.keys.should include "name"
+        v.should be_respond_to "relevance"
+        v.should be_respond_to "options"
+        v.should be_respond_to "name"
       end
     end
     
     it "options should be an array" do
       actual = FacetProc.calculate(Cable.all)
       actual.each do |v|
-        v["options"].class.should eq(Array)
+        v.options.class.should eq(Array)
       end      
     end
   end
