@@ -47,11 +47,11 @@ describe Facet do
     
     describe "calculate relevance" do
       it "should have relevance=0 with 100% different values (item_number, mfg_part_number, id)"
-      it "should have relevance=10 with 50% different values (part_type column)"
+      it "should have relevance=10 with 50% different values (part_type, pitch)"
       it "should have relevance=0 with 0% different values (filename, level, conductor, wire_gauge)"
       
-      it "should have relevance=0 with all null values (number_pairs, pitch)"
-      it "should have relevance=8 +/-2 with 40-40-30 values (type column)"
+      it "should have relevance=0 with all null values (item_description)"
+      it "should have relevance=8 +/-2 with 40-40-30 values (type)"
       it "should have relevance=5 +/- 2 with 50% values and other null (number_pairs)"
     end
   end
