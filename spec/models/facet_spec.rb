@@ -37,7 +37,13 @@ describe Facet do
   end
   
   describe "FacetProc" do
-    it "should return an array of Facets with the column names"
+    it "should return an array of Facets with the column names" do
+      actual = FacetProc.calculate(Cable.all)
+      names = Cable.column_names
+      actual.each.with_index do |v, i|
+        v.name.should be == names[i]
+      end
+    end
     it "should sort the elements by relevance"
   end
   

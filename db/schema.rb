@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518032931) do
+ActiveRecord::Schema.define(:version => 20120519171942) do
 
   create_table "cables", :force => true do |t|
     t.string   "filename"
@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(:version => 20120518032931) do
     t.string   "pitch"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "facets", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
