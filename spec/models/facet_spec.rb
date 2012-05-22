@@ -48,7 +48,17 @@ describe Facet do
   end
   
   describe "Facet Objects" do
-    it "should return the right number of options(flat,coax,multi) for the column 'type'"
+    
+    before :each do
+      @arr = FacetProc.calculate(Cable.all)
+    end
+    
+    it "should return the right number of options(flat,coax,multi) for the column 'type'" do
+      @arr.each do |facet|
+        facet.options.should =~ %w[flat coax multi] if facet.name == "type"
+      end
+    end
+
     it "should have options count ('coax'=>4, 'flat'=>4, 'multi'=>2)"
     
     describe "calculate relevance" do
