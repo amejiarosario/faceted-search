@@ -66,8 +66,19 @@ describe Facet do
     end
     
     describe "calculate relevance" do
-      it "should have relevance=0 +/- 1 with 100% different values (item_number, mfg_part_number, id)"
-      it "should have relevance=10 +/- 1 with 50% different values (part_type, pitch)"
+      it "should have relevance=0 +/- 1 with 100% different values (item_number, mfg_part_number, id)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(1).of(0) if facet.name == "item_number" || facet.name == "mfg_part_number" || facet.name == "id"
+        end
+      end
+
+      it "should have relevance=10 +/- 1 with 50% different values (part_type, pitch)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(1).of(10) if  facet.name == "pitch"
+          facet.relevance.should be_within(1).of(10) if facet.name == "part_type" 
+        end
+      end
+
       it "should have relevance=0 +/- 1 with 0% different values (filename, level, conductor, wire_gauge)"
       
       it "should have relevance=0 with all null values (item_description)"
