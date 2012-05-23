@@ -1,4 +1,5 @@
 class Facet
+  include Comparable
   attr_accessor :name, :options, :relevance
   
   def initialize(name)
@@ -8,6 +9,10 @@ class Facet
 
   def relevance
     @relevance ||= calculate
+  end
+
+  def <=> (other)
+    relevance <=> other.relevance
   end
 
   private

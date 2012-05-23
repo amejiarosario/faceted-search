@@ -46,12 +46,16 @@ describe Facet do
     it "should return an array of Facets with the column names" do
       actual = FacetProc.calculate(Cable.all)
       names = Cable.column_names
-      actual.each.with_index do |v, i|
-        v.name.should be == names[i]
-      end
+      actual.map(&:name).should =~ names
     end
     
-    it "should sort the elements by relevance"
+    it "should sort the elements by relevance (most relevant first)" do
+      prev_rel = nil
+      @arr.each do |facet|
+        facet.relevance.should be <= prev_rel if prev_rel
+        prev_rel = facet.relevance
+      end
+    end
   end
   
   describe "Facet Objects" do
@@ -199,6 +203,8 @@ describe Facet do
         end
       end
     end
+
+    describe "facet with multiple options and also with nulls"
     
   end
   
