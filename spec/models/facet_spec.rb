@@ -34,7 +34,7 @@ describe Facet do
       end
     end
    
-    it "options should be an array and relevance an Float" do
+    it "options should be an array and relevance an Float", current: true  do
       @arr.each do |facet|
         facet.options.class.should be Hash
         facet.relevance.class.should be Float

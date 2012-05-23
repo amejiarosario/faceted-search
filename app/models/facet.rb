@@ -12,13 +12,15 @@ class Facet
 
   private
     def calculate
-      0.0 if @options.count < 1
+      return 0.0 if @options && (@options.count < 2 || @options[:total] < 1)
       vals = @options.clone
       vals.delete(:total)
       
+      #binding.pry
+      
       non_null_weight_val = gauss(median(vals.values.map { |n| Float(n)/Float(@options[:total]) }))
       null_weight_val = null_weight(vals.values.inject(:+)/@options[:total])
-      #binding.pry
+      
       non_null_weight_val * null_weight_val
     end
 
@@ -28,6 +30,9 @@ class Facet
 
     # http://fooplot.com/0.4*(1/(0.15*sqrt(2*pi)))*e%5E(-0.5*((x-0.50)/(0.15))%5E2)
     def gauss(x = 0)
+      x ||= 0
+      binding.pry if x.nil?
+      return 0.0 if x<0 || x>1
       #34/Math::sqrt(2*Math::PI*180)*Math::E**(-0.5*(percentage-50)**2/180)
       0.4*(1/(0.15*Math::sqrt(2*Math::PI)))*Math::E**(-0.5*((x-0.50)/(0.15))**2)
     end
