@@ -2,21 +2,26 @@ describe Facet do
   
   before :each do
     # create 10 cables
-    4.times do
-      FactoryGirl.create(:cable)
-      FactoryGirl.create(:cable2)
-    end
-    FactoryGirl.create(:cable, type: "multi") 
-    FactoryGirl.create(:cable2, type: "multi")
+    FactoryGirl.create(:cable, conductor: "1", number_pairs: "2", jacket: "METAL", number_pairs: "")
+    FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-1", insulation: "4", stranding: "19/30")
+    FactoryGirl.create(:cable, conductor: "2", number_pairs: "2", insulation: "4", number_pairs: "", kevlar_core: " ")
+    FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-2", jacket: "METAL", color: "Orange")
+    FactoryGirl.create(:cable, insulation: "1", jacket: "PLASTIC", diameter: "", kevlar_core: "No", pitch: "0.03")
+    FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-3", insulation: "2", stranding: "19/30", pitch: "0.03")
+    FactoryGirl.create(:cable, insulation: "1", jacket: "PLASTIC", shielding: "E/D", wire_gauge: "", pitch: "0.04")
+    FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-4", insulation: "2", pitch: "0.05")
+    FactoryGirl.create(:cable, type: "multi", insulation: "3", jacket: "CRYSTAL", wire_gauge: "", pitch: "0.06", number_pairs: "") # item_number: "10012-0703-9" 
+    FactoryGirl.create(:cable2, type: "multi", level: 1, insulation: "3", jacket: "CRYSTAL", kevlar_core: "", pitch: "0.07") # item_number: "10012-0703-9"
   end
   
   describe "structure" do
     
     it "should have an array of objects" do
       actual = FacetProc.calculate(Cable.all)
+      binding.pry
       actual.each do |v|
         v.class.should eq(Facet)
-      end      
+      end
     end
     
     it "should include column names from model and relevance" do
