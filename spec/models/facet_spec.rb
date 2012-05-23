@@ -34,7 +34,7 @@ describe Facet do
       end
     end
    
-    it "options should be an array and relevance an Float", current: true  do
+    it "options should be an array and relevance an Float"  do
       @arr.each do |facet|
         facet.options.class.should be Hash
         facet.relevance.class.should be Float
@@ -96,7 +96,7 @@ describe Facet do
         end        
       end
       
-      it "all different (id)", current: true do
+      it "all different (id)" do
         @arr.each do |facet|
           facet.relevance.should be_within(@tolerance).of(0.03) if  facet.name == "id"
         end
@@ -170,7 +170,7 @@ describe Facet do
         end
       end
       
-      it "4 equals other nulls (diameter)" do
+      it "4 equals other nulls (diameter)", current: true do
         @arr.each do |facet|
           facet.relevance.should be_within(@tolerance).of(0.34) if  facet.name == "diameter"
         end

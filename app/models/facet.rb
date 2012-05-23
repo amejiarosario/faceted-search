@@ -16,11 +16,10 @@ class Facet
       vals = @options.clone
       vals.delete(:total)
       
-      #binding.pry
-      
       non_null_weight_val = gauss(median(vals.values.map { |n| Float(n)/Float(@options[:total]) }))
-      null_weight_val = null_weight(vals.values.inject(:+)/@options[:total])
+      null_weight_val = null_weight(Float(@options[:total] - vals.values.inject(:+))/Float(@options[:total]))
       
+      #binding.pry 
       non_null_weight_val * null_weight_val
     end
 
@@ -42,7 +41,7 @@ class Facet
     end
     
     def null_weight(x)
-      1 - Float(x)/Float(100)
+      1 - Float(x)
     end
 
 end
