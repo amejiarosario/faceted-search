@@ -16,6 +16,8 @@ describe Facet do
     @arr = FacetProc.calculate(Cable.all)
   end
   
+  @tolerance = 0.1
+  
   describe "structure" do
     
     it "should have an array of objects" do
@@ -65,48 +67,133 @@ describe Facet do
     end
     
     describe "calculate relevance for:" do
+      
       it "all null (item_description)" do
         @arr.each do |facet|
-          facet.relevance.should be_within(1).of(0) if  facet.name == "item_description"
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "item_description"
         end
       end
       
       it "all equals (filename)" do
         @arr.each do |facet|
-          facet.relevance.should be_within(1).of(0) if  facet.name == "filename"
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "filename"
         end        
       end
       
-      it "all different (id)"
-      it "all null but one (shielding)"
-      it "all equal but one (level)"
-      it "2 diff no nulls (part_type)"
-      it "3 diff no nulls (type)"
-      it "4 diff no nulls (jacket)"
-      it "5 diff no nulls (insulation)"
-      it "6 diff no nulls (mfg_part_number)"
-      it "7 diff no nulls (pitch)"
-      it "8 diff no nulls (conductor)"
-      it "9 diff no nulls (number_pairs)"
-      it "3 equals other nulls (wire_gauge)"
-      it "4 equals other nulls (diameter)"
-      it "5 equals other nulls (putup)"
-      it "6 equals other nulls (color)"
-      it "7 equals other nulls (stranding)"
-      it "8 equals other nulls (kevlar_core)"
+      it "all different (id)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "id"
+        end
+      end
+      
+      it "all null but one (shielding)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "shielding"
+        end
+      end
+      
+      it "all equal but one (level)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "level"
+        end
+      end
+      
+      it "2 diff no nulls (part_type)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(1) if  facet.name == "part_type"
+        end
+      end
+      
+      it "3 diff no nulls (type)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "type"
+        end
+      end
+      
+      it "4 diff no nulls (jacket)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "jacket"
+        end
+      end
+      
+      it "5 diff no nulls (insulation)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "insulation"
+        end
+      end
+      
+      it "6 diff no nulls (mfg_part_number)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "mfg_part_number"
+        end
+      end
+      
+      it "7 diff no nulls (pitch)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "pitch"
+        end
+      end
+      
+      it "8 diff no nulls (conductor)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "conductor"
+        end
+      end
+      
+      it "9 diff no nulls (number_pairs)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "number_pairs"
+        end
+      end
+      
+      it "3 equals other nulls (wire_gauge)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "wire_gauge"
+        end
+      end
+      
+      it "4 equals other nulls (diameter)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "diameter"
+        end
+      end
+      
+      it "5 equals other nulls (putup)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "putup"
+        end
+      end
+      
+      it "6 equals other nulls (color)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "color"
+        end
+      end
+      
+      it "7 equals other nulls (stranding)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "stranding"
+        end
+      end
+      
+      it "8 equals other nulls (kevlar_core)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(@tolerance).of(0) if  facet.name == "kevlar_core"
+        end
+      end
       
       
       #----- old ones ----
       it "should have relevance=0 +/- 1 with 100% different values (item_number, mfg_part_number, id)" do
         @arr.each do |facet|
-          facet.relevance.should be_within(1).of(0) if facet.name == "item_number" || facet.name == "mfg_part_number" || facet.name == "id"
+          facet.relevance.should be_within(@tolerance).of(0) if facet.name == "item_number" || facet.name == "mfg_part_number" || facet.name == "id"
         end
       end
 
       it "should have relevance=10 +/- 1 with 50% different values (part_type, pitch)" do
         @arr.each do |facet|
-          facet.relevance.should be_within(1).of(10) if  facet.name == "pitch"
-          facet.relevance.should be_within(1).of(10) if facet.name == "part_type" 
+          facet.relevance.should be_within(@tolerance).of(10) if  facet.name == "pitch"
+          facet.relevance.should be_within(@tolerance).of(10) if facet.name == "part_type" 
         end
       end
 
