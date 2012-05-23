@@ -5,7 +5,7 @@ class FacetProc
     model.column_names.each do |column|
       f = Facet.new(column)
       #options names
-      # FIXME don't use model to select options... use the object! (in case is a subset)
+      # FIXED don't use model to select options... use the object! (in case is a subset)
       options = objs.map { |c| c.send(column)}.uniq
         .delete_if { |n| n.nil? || n.blank? }
       
