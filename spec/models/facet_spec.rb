@@ -12,21 +12,20 @@ describe Facet do
     FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-4", insulation: "2", pitch: "0.05")
     FactoryGirl.create(:cable, type: "multi", insulation: "3", jacket: "CRYSTAL", wire_gauge: "", pitch: "0.06", number_pairs: "") # item_number: "10012-0703-9" 
     FactoryGirl.create(:cable2, type: "multi", level: 1, insulation: "3", jacket: "CRYSTAL", kevlar_core: "", pitch: "0.07") # item_number: "10012-0703-9"
+    
+    @arr = FacetProc.calculate(Cable.all)
   end
   
   describe "structure" do
     
     it "should have an array of objects" do
-      actual = FacetProc.calculate(Cable.all)
-      binding.pry
-      actual.each do |v|
+      @arr.each do |v|
         v.class.should eq(Facet)
       end
     end
     
     it "should include column names from model and relevance" do
-      actual = FacetProc.calculate(Cable.all) # FIXME should pass Cable.all, so it can be get facets from nested elements
-      actual.each do |v|
+      @arr.each do |v|
         v.should be_respond_to "relevance"
         v.should be_respond_to "options"
         v.should be_respond_to "name"
@@ -34,8 +33,7 @@ describe Facet do
     end
    
     it "options should be an array" do
-      actual = FacetProc.calculate(Cable.all)
-      actual.each do |v|
+      @arr.each do |v|
         v.options.class.should eq(Hash)
       end      
     end
@@ -53,24 +51,52 @@ describe Facet do
   end
   
   describe "Facet Objects" do
-    
-    before :each do
-      @arr = FacetProc.calculate(Cable.all)
-    end
-    
+   
     it "should return the right number of options(flat,coax,multi) for the column 'type'" do
       @arr.each do |facet|
-        facet.options.keys.should =~ %w[flat coax multi] if facet.name == "type"
+        facet.options.keys.should =~ ["flat", "coax", "multi", :total] if facet.name == "type"
       end
     end
 
     it "should have options count ('coax'=>4, 'flat'=>4, 'multi'=>2)" do
       @arr.each do |facet|
-        facet.options.should == {'coax' => 4, 'flat' => 4, 'multi' => 2} if facet.name == "type"
+        facet.options.should == {'coax' => 4, 'flat' => 4, 'multi' => 2, :total=>10} if facet.name == "type"
       end
     end
     
-    describe "calculate relevance" do
+    describe "calculate relevance for:" do
+      it "all null (item_description)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(1).of(0) if  facet.name == "item_description"
+        end
+      end
+      
+      it "all equals (filename)" do
+        @arr.each do |facet|
+          facet.relevance.should be_within(1).of(0) if  facet.name == "filename"
+        end        
+      end
+      
+      it "all different (id)"
+      it "all null but one (shielding)"
+      it "all equal but one (level)"
+      it "2 diff no nulls (part_type)"
+      it "3 diff no nulls (type)"
+      it "4 diff no nulls (jacket)"
+      it "5 diff no nulls (insulation)"
+      it "6 diff no nulls (mfg_part_number)"
+      it "7 diff no nulls (pitch)"
+      it "8 diff no nulls (conductor)"
+      it "9 diff no nulls (number_pairs)"
+      it "3 equals other nulls (wire_gauge)"
+      it "4 equals other nulls (diameter)"
+      it "5 equals other nulls (putup)"
+      it "6 equals other nulls (color)"
+      it "7 equals other nulls (stranding)"
+      it "8 equals other nulls (kevlar_core)"
+      
+      
+      #----- old ones ----
       it "should have relevance=0 +/- 1 with 100% different values (item_number, mfg_part_number, id)" do
         @arr.each do |facet|
           facet.relevance.should be_within(1).of(0) if facet.name == "item_number" || facet.name == "mfg_part_number" || facet.name == "id"

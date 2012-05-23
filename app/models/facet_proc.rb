@@ -10,7 +10,7 @@ class FacetProc
         .delete_if { |n| n.nil? || n.blank? }
       
       #options + count => hash
-      options_hash = {name: column, total: objs.count }
+      options_hash = {total: objs.count }
       options.each do |n|
         options_hash[n] = model.where(column.to_sym => n).count
       end
