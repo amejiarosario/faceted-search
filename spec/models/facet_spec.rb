@@ -2,22 +2,21 @@ describe Facet do
   
   before :each do
     # create 10 cables
-    FactoryGirl.create(:cable, conductor: "1", number_pairs: "2", jacket: "METAL", number_pairs: "")
+    FactoryGirl.create(:cable,mfg_part_number: "E        C51116-1", conductor: "1", number_pairs: "2", jacket: "METAL", number_pairs: "")
     FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-1", insulation: "4", stranding: "19/30")
-    FactoryGirl.create(:cable, conductor: "2", number_pairs: "2", insulation: "4", number_pairs: "", kevlar_core: " ")
+    FactoryGirl.create(:cable,mfg_part_number: "E        C51116-2", conductor: "2", number_pairs: "2", insulation: "4", number_pairs: "", kevlar_core: " ")
     FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-2", jacket: "METAL", color: "Orange")
-    FactoryGirl.create(:cable, insulation: "1", jacket: "PLASTIC", diameter: "", kevlar_core: "No", pitch: "0.03")
+    FactoryGirl.create(:cable,mfg_part_number: "E        C51116-3",  insulation: "1", jacket: "PLASTIC", diameter: "", kevlar_core: "No", pitch: "0.03")
     FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-3", insulation: "2", stranding: "19/30", pitch: "0.03")
     FactoryGirl.create(:cable, insulation: "1", jacket: "PLASTIC", shielding: "E/D", wire_gauge: "", pitch: "0.04")
     FactoryGirl.create(:cable2, mfg_part_number: "E        C51116-4", insulation: "2", pitch: "0.05")
-    FactoryGirl.create(:cable, type: "multi", insulation: "3", jacket: "CRYSTAL", wire_gauge: "", pitch: "0.06", number_pairs: "") # item_number: "10012-0703-9" 
+    FactoryGirl.create(:cable, mfg_part_number: "E        C51116-4",type: "multi", insulation: "3", jacket: "CRYSTAL", wire_gauge: "", pitch: "0.06", number_pairs: "") # item_number: "10012-0703-9" 
     FactoryGirl.create(:cable2, type: "multi", level: 1, insulation: "3", jacket: "CRYSTAL", kevlar_core: "", pitch: "0.07") # item_number: "10012-0703-9"
     
     @arr = FacetProc.calculate(Cable.all)
     @tolerance = 0.1
   end
-  
-  
+ 
   describe "structure" do
     
     it "should have an array of objects" do
@@ -140,7 +139,7 @@ describe Facet do
         end
       end
       
-      it "6 diff no nulls (mfg_part_number)" do
+      it "6 diff no nulls (mfg_part_number)", current: true do
         @arr.each do |facet|
           facet.relevance.should be_within(@tolerance).of(0.14) if  facet.name == "mfg_part_number"
         end
@@ -170,7 +169,7 @@ describe Facet do
         end
       end
       
-      it "4 equals other nulls (diameter)", current: true do
+      it "4 equals other nulls (diameter)" do
         @arr.each do |facet|
           facet.relevance.should be_within(@tolerance).of(0.34) if  facet.name == "diameter"
         end

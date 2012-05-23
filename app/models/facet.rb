@@ -19,7 +19,7 @@ class Facet
       non_null_weight_val = gauss(median(vals.values.map { |n| Float(n)/Float(@options[:total]) }))
       null_weight_val = null_weight(Float(@options[:total] - vals.values.inject(:+))/Float(@options[:total]))
       
-      #binding.pry 
+      #binding.pry if @name == "mfg_part_number"
       non_null_weight_val * null_weight_val
     end
 
