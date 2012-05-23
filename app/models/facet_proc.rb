@@ -18,6 +18,7 @@ class FacetProc
       f.options = options_hash
       arr << f
     end
-    arr.sort {|a,b| b.relevance <=> a.relevance}
+    #arr.sort {|a,b| b.relevance <=> a.relevance} #works fine btw
+    arr.sort {|a,b| b <=> a} # reverse order as well
   end
 end
