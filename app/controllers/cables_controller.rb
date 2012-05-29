@@ -1,4 +1,6 @@
 class CablesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+  
   # GET /cables
   # GET /cables.json
   def index
@@ -84,9 +86,9 @@ class CablesController < ApplicationController
   
   private
     def sort_column
-      params[:sort] || "item_number"
+      Cable.column_names.include?(params[:sort]) ? params[:sort] : "item_number"
     end
     def sort_direction
-      params[:direction] || 'asc' 
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
     end
 end
