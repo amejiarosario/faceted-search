@@ -7,7 +7,7 @@ FactoryGirl.define do
     level 0
     part_type "Cable and Wire" 
     sequence(:item_number) {|n| "10012-0703-#{n.to_s}"}
-    sequence(:mfg_part_number) {|n| "E        C51116-#{n.to_s}"}
+    sequence(:mfg_part_number) {|n| "E        C51116-#{n.to_s}" }
     item_description ""
     type "coax"
     sequence(:conductor) {|n| n.to_s}
