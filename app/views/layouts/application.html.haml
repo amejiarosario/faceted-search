@@ -25,9 +25,9 @@
           %a.brand(href="#") Cable Configurator
           .container.nav-collapse
             %ul.nav
-              %li= link_to "List", "/cables"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "Cable List", "/cables"
+              /%li= link_to "Link 2", "/path2"
+              /%li= link_to "Link 3", "/path3"
 
     .container-fluid
 
@@ -35,10 +35,12 @@
         .span3
           .well.sidebar-nav
             %ul.nav.nav-list
-              %li.nav-header Filters
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              - if @facets
+                - @facets.each do |facet|
+                  - if facet.options.count < 15
+                    %li.nav-header= "#{facet.name} (#{facet.options[:total]}) [#{facet.relevance}]"
+                    - facet.options.each do |category, times|             
+                      %li= link_to "#{category} (#{times})", "/path1" unless category == :total
         .span9
           -# FIXME check bootstrap alerts
           -# TODO create configuration

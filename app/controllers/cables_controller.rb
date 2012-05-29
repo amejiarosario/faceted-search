@@ -3,7 +3,8 @@ class CablesController < ApplicationController
   # GET /cables.json
   def index
     @cables = Cable.all
-
+    @facets = FacetProc.calculate(@cables)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @cables }
