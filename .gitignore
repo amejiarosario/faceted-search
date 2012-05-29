@@ -18,3 +18,4 @@ pickle-email-*.html
 # Sensitive data
 database.yml
 /db/data/*
+.dropbox
