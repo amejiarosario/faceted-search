@@ -6,11 +6,11 @@
       /%th= model_class.human_attribute_name(:id)
       /%th= model_class.human_attribute_name(:filename)
       /%th= model_class.human_attribute_name(:level)
-      %th= model_class.human_attribute_name(:item_number)
-      %th= model_class.human_attribute_name(:part_type)
-      %th= model_class.human_attribute_name(:mfg_part_number)
-      %th= model_class.human_attribute_name(:item_description)
-      %th= model_class.human_attribute_name(:type)
+      %th=sortable "item_number"
+      %th=sortable "part_type" #model_class.human_attribute_name(:part_type)
+      %th=sortable "mfg_part_number"
+      %th=sortable "item_description"
+      %th=sortable "type"
       /%th= model_class.human_attribute_name(:conductor)
       /%th= model_class.human_attribute_name(:number_pairs)
       /%th= model_class.human_attribute_name(:insulation)

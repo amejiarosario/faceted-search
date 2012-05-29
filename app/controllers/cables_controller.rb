@@ -2,8 +2,8 @@ class CablesController < ApplicationController
   # GET /cables
   # GET /cables.json
   def index
-    @cables = Cable.all
-    @facets = FacetProc.calculate(@cables)
+    @cables = Cable.order(sort_column + ' ' + sort_direction)
+    #@facets = FacetProc.calculate(@cables)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -81,4 +81,12 @@ class CablesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def sort_column
+      params[:sort] || "item_number"
+    end
+    def sort_direction
+      params[:direction] || 'asc' 
+    end
 end
