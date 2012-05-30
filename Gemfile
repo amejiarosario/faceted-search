@@ -12,6 +12,7 @@ gem 'haml-rails'
 gem 'thin'
 gem 'pg'
 gem 'devise'
+gem 'will_paginate'
 
 
 group :development, :test do

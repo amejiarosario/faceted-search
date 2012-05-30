@@ -53,4 +53,9 @@
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_cable_path(cable), :class => 'btn btn-mini'
           = link_to t('.destroy', :default => t("helpers.links.destroy")), cable_path(cable), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
 
+=# FIXME current page lable is not displaying correctly
+= will_paginate @cables
+
 = link_to t('.new', :default => t("helpers.links.new")), new_cable_path, :class => 'btn btn-primary'
+
+
