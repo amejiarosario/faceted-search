@@ -4,7 +4,7 @@ class CablesController < ApplicationController
   # GET /cables
   # GET /cables.json
   def index
-    @cables = Cable.order(sort_column + ' ' + sort_direction).paginate(per_page: 25, page: params[:page])
+    @cables = Cable.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(per_page: 25, page: params[:page])
     #@facets = FacetProc.calculate(@cables)
     
     respond_to do |format|
