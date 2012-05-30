@@ -4,8 +4,14 @@ class CablesController < ApplicationController
   # GET /cables
   # GET /cables.json
   def index
-    @cables = Cable.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(per_page: 25, page: params[:page])
-    #@facets = FacetProc.calculate(@cables)
+    @cables = Cable
+      .search(params[:search])
+      .order(sort_column + ' ' + sort_direction)
+      .where(sort_facet)
+    
+    @facets = FacetProc.calculate(@cables)
+    
+    @cables = @cables.paginate(per_page: 25, page: params[:page])
     
     respond_to do |format|
       format.html # index.html.erb
@@ -88,7 +94,12 @@ class CablesController < ApplicationController
     def sort_column
       Cable.column_names.include?(params[:sort]) ? params[:sort] : "item_number"
     end
+    
     def sort_direction
       %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
+    
+    def sort_facet
+      params.select{|k,v| Cable.column_names.include? k.to_s }
     end
 end

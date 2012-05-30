@@ -15,7 +15,7 @@ class FacetProc
         options_hash[n] = model.where(column.to_sym => n).count
       end
     
-      f.options = options_hash
+      f.options = options_hash #.sort {|a,b| a[1] <=> b[1] } #sort by value #TODO sort by value
       arr << f
     end
     #arr.sort {|a,b| b.relevance <=> a.relevance} #works fine btw

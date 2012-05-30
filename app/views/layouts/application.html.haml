@@ -40,7 +40,7 @@
                   - if facet.options.count < 15
                     %li.nav-header= "#{facet.name} (#{facet.options[:total]}) [#{facet.relevance}]"
                     - facet.options.each do |category, times|             
-                      %li= link_to "#{category} (#{times})", "?#{facet.name}=#{category}" unless category == :total
+                      %li= link_to "#{category} (#{times})", params.merge(facet.name.to_sym => category) unless category == :total
         .span9
           -# FIXME check bootstrap alerts
           -# TODO create configuration
