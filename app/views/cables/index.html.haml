@@ -1,3 +1,8 @@
+= form_tag cables_path, method: 'get' do
+  %p
+    = text_field_tag :search, params[:search]
+    = submit_tag "Search", name: nil
+
 - model_class = Cable.new.class
 %h1=t '.title', :default => model_class.model_name.human.pluralize
 %table.table.table-striped
