@@ -6,64 +6,67 @@
     = text_field_tag :search, params[:search]
     = submit_tag "Search", name: nil
 
-- model_class = Cable.new.class
-%h1=t '.title', :default => model_class.model_name.human.pluralize
-%table.table.table-striped
-  %thead
-    %tr
-      /%th= model_class.human_attribute_name(:id)
-      /%th= model_class.human_attribute_name(:filename)
-      /%th= model_class.human_attribute_name(:level)
-      %th=sortable "item_number"
-      %th=sortable "part_type" #model_class.human_attribute_name(:part_type)
-      %th=sortable "mfg_part_number"
-      %th=sortable "item_description"
-      %th=sortable "type"
-      /%th= model_class.human_attribute_name(:conductor)
-      /%th= model_class.human_attribute_name(:number_pairs)
-      /%th= model_class.human_attribute_name(:insulation)
-      /%th= model_class.human_attribute_name(:jacket)
-      /%th= model_class.human_attribute_name(:shielding)
-      /%th= model_class.human_attribute_name(:wire_gauge)
-      /%th= model_class.human_attribute_name(:diameter)
-      /%th= model_class.human_attribute_name(:putup)
-      /%th= model_class.human_attribute_name(:color)
-      /%th= model_class.human_attribute_name(:stranding)
-      /%th= model_class.human_attribute_name(:kevlar_core)
-      /%th= model_class.human_attribute_name(:pitch)
-      /%th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @cables.each do |cable|
+- if @cables.count < 1
+  %h3=raw "No cable were found with the selected criteria. #{link_to 'Show all!', cables_path}"
+- else
+  - model_class = Cable.new.class
+  %h1=t '.title', :default => model_class.model_name.human.pluralize
+  %table.table.table-striped
+    %thead
       %tr
-        /%td= link_to cable.id, cable_path(cable)
-        /%td= cable.filename
-        /%td= cable.level
-        %td= link_to cable.item_number, cable_path(cable)
-        %td= cable.part_type
-        %td= cable.mfg_part_number
-        %td= cable.item_description
-        %td= cable.type
-        /%td= cable.conductor
-        /%td= cable.number_pairs
-        /%td= cable.insulation
-        /%td= cable.jacket
-        /%td= cable.shielding
-        /%td= cable.wire_gauge
-        /%td= cable.diameter
-        /%td= cable.putup
-        /%td= cable.color
-        /%td= cable.stranding
-        /%td= cable.kevlar_core
-        /%td= cable.pitch
-        /%td=l cable.created_at
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_cable_path(cable), :class => 'btn btn-mini'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), cable_path(cable), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
-
-=# FIXME current page lable is not displaying correctly
-= will_paginate @cables
-
-= link_to t('.new', :default => t("helpers.links.new")), new_cable_path, :class => 'btn btn-primary'
+        =#/%th= model_class.human_attribute_name(:id)
+        =#/%th= model_class.human_attribute_name(:filename)
+        =#/%th= model_class.human_attribute_name(:level)
+        %th=sortable "item_number"
+        %th=sortable "part_type" #model_class.human_attribute_name(:part_type)
+        %th=sortable "mfg_part_number"
+        %th=sortable "item_description"
+        %th=sortable "type"
+        =#/%th= model_class.human_attribute_name(:conductor)
+        =#/%th= model_class.human_attribute_name(:number_pairs)
+        =#/%th= model_class.human_attribute_name(:insulation)
+        =#/%th= model_class.human_attribute_name(:jacket)
+        =#/%th= model_class.human_attribute_name(:shielding)
+        =#/%th= model_class.human_attribute_name(:wire_gauge)
+        =#/%th= model_class.human_attribute_name(:diameter)
+        =#/%th= model_class.human_attribute_name(:putup)
+        =#/%th= model_class.human_attribute_name(:color)
+        =#/%th= model_class.human_attribute_name(:stranding)
+        =#/%th= model_class.human_attribute_name(:kevlar_core)
+        =#/%th= model_class.human_attribute_name(:pitch)
+        =#/%th= model_class.human_attribute_name(:created_at)
+        %th=t '.actions', :default => t("helpers.actions")
+    %tbody
+      - @cables.each do |cable|
+        %tr
+          =#/%td= link_to cable.id, cable_path(cable)
+          =#/%td= cable.filename
+          =#/%td= cable.level
+          %td= link_to cable.item_number, cable_path(cable)
+          %td= cable.part_type
+          %td= cable.mfg_part_number
+          %td= cable.item_description
+          %td= cable.type
+          =#/%td= cable.conductor
+          =#/%td= cable.number_pairs
+          =#/%td= cable.insulation
+          =#/%td= cable.jacket
+          =#/%td= cable.shielding
+          =#/%td= cable.wire_gauge
+          =#/%td= cable.diameter
+          =#/%td= cable.putup
+          =#/%td= cable.color
+          =#/%td= cable.stranding
+          =#/%td= cable.kevlar_core
+          =#/%td= cable.pitch
+          =#/%td=l cable.created_at
+          %td
+            = link_to t('.edit', :default => t("helpers.links.edit")), edit_cable_path(cable), :class => 'btn btn-mini'
+            = link_to t('.destroy', :default => t("helpers.links.destroy")), cable_path(cable), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+  
+  =# FIXME current page lable is not displaying correctly
+  = will_paginate @cables
+  
+  = link_to t('.new', :default => t("helpers.links.new")), new_cable_path, :class => 'btn btn-primary'
 
 

@@ -3,7 +3,7 @@
   %head
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    %title= content_for?(:title) ? yield(:title) : "FacetedSearch"
+    %title= content_for?(:title) ? yield(:title) : "Cable Configurator"
     = csrf_meta_tags
     / Le HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
@@ -22,23 +22,42 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") Cable Configurator
+          = link_to "Cable Configurator", root_path, class: "brand" #%a.brand(href="#") Cable Configurator
           .container.nav-collapse
             %ul.nav
               %li= link_to "Cable List", "/cables"
               /%li= link_to "Link 2", "/path2"
               /%li= link_to "Link 3", "/path3"
+            %ul.nav.pull-right
+              - if user_signed_in?
+                %li.dropdown
+                  %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown" }
+                    %i.icon-user
+                    = current_user.email || current_user.name
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li= link_to raw('<i class="icon-cog"></i> Profile'), edit_user_registration_path
+                    =#%li= link_to raw('<i class="icon-signal"></i> Score'), "#"
+                    %li.divider
+                    %li= link_to raw('<i class="icon-off"></i> Logout'), destroy_user_session_path, :method => :delete
+              - else
+                %li= link_to "Login", new_user_session_path
+
 
     .container-fluid
 
       .row-fluid
         .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              - if @facets
+          - if @facets
+            .well.sidebar-nav
+              %h4= link_to "(clear filters)", cables_path, class: "pull-right"
+              %h3 Filters
+              
+              %ul.nav.nav-list
                 - @facets.each do |facet|
-                  - if facet.options.count < 15
-                    %li.nav-header= "#{facet.name} (#{facet.options[:total]}) [#{facet.relevance}]"
+                  - if (facet.options.count < 15 && facet.options.count > 2) or facet.relevance > 0.1
+                    %li.divider
+                    %li.nav-header= "#{facet.name} [#{'%5.2f'%(facet.relevance*100.0)}]" #(#{facet.options[:total]})
                     - facet.options.each do |category, times|             
                       %li= link_to "#{category} (#{times})", params.merge(facet.name.to_sym => category) unless category == :total
         .span9
@@ -48,13 +67,15 @@
           -# TODO implement faceted search similiar to amazon & test first
           -# TODO devise test and login http://railscasts.com/episodes/209-introducing-devise?view=asciicast
           
-          %p.notice= notice
-          %p.alert= alert
+          - if notice
+            %p.notice= notice
+          - if alert
+            %p.alert= alert
           
           = yield
     
       %footer
-        %p &copy; Company 2012
+        %p=# &copy; Company 2012
     /
       Javascripts
       \==================================================

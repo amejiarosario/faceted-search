@@ -1,5 +1,7 @@
 class FacetProc
   def self.calculate(objs)
+    return nil if objs.nil? or objs[0].nil?
+    
     arr = []
     model = objs[0].class
     model.column_names.each do |column|
