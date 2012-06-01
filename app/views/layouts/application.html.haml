@@ -61,21 +61,41 @@
                     - facet.options.each do |category, times|             
                       %li= link_to "#{category} (#{times})", params.merge(facet.name.to_sym => category) unless category == :total
         .span9
-          -# FIXME check bootstrap alerts
+          -# DONE check bootstrap alerts
           -# TODO create configuration
           -# DONE migrate data
           -# TODO implement faceted search similiar to amazon & test first
           -# TODO devise test and login http://railscasts.com/episodes/209-introducing-devise?view=asciicast
           
-          - if notice
-            %p.notice= notice
-          - if alert
-            %p.alert= alert
+          - if notice or flash.key? :notice
+            .alert.alert-info
+              %button.close{"data-dismiss" => "alert"} x
+              =#%h4.alert-heading Notice:
+              =#%strong= notice if notice
+              %strong= flash[:notice] if flash.key? :notice
+          - if alert or flash.key? :alert
+            .alert.alert-block
+              %button.close{"data-dismiss" => "alert"} x
+              =#%h4.alert-heading Warning:
+              =#%strong= alert if alert
+              %strong= flash[:alert] if flash.key? :alert
+          - if flash.key? :error
+            .alert.alert-error
+              %button.close{"data-dismiss" => "alert"} x
+              %h4.alert-heading Error(s):
+              %strong= flash[:error]
+              
           
           = yield
     
       %footer
         %p=# &copy; Company 2012
+        
+        - if Rails.env.development?
+          %hr
+          = debug(params)       
+          %br
+          = debug(flash)
     /
       Javascripts
       \==================================================
