@@ -6,11 +6,12 @@ th .current {
   padding-right: 12px;
   background-repeat: no-repeat;
   background-position: right center;
+  
 }
 th .asc { 
-  background-image: url(http://supply-chain.org/i/icons/bullet_arrow_up_down.png); 
+  background-image: url(/assets/up_arrow.gif);
 }
 
 th .desc { 
-  background-image: url(http://supply-chain.org/i/icons/bullet_arrow_up_down.png); 
+  background-image: url(/assets/down_arrow.gif);
 }
