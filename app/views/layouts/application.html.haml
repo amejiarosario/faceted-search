@@ -82,7 +82,7 @@
           - if flash.key? :error
             .alert.alert-error
               %button.close{"data-dismiss" => "alert"} x
-              %h4.alert-heading Error(s):
+              =#%h4.alert-heading Error(s):
               %strong= flash[:error]
               
           
