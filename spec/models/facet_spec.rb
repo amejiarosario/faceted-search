@@ -206,6 +206,9 @@ describe Facet do
 
     describe "facet with multiple options and also with nulls"
     
+    #http://0.0.0.0:4000/cables?insulation=mil-w-22759%2F18+mil-w-22759%2F32&kevlar_core=No&shielding=B
+    it "case when all are different, need a boost?"
+    
   end
   
  end

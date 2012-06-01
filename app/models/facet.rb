@@ -14,10 +14,10 @@ class Facet
   def <=> (other)
     relevance <=> other.relevance
   end
-
+  
   private
     def calculate
-      return 0.0 if @options && (@options.count < 2 || @options[:total] < 1)
+      return 0.0 if @options && (@options.count < 2 || @options[:total] < 1 )
       vals = @options.clone
       vals.delete(:total)
       
@@ -48,5 +48,15 @@ class Facet
     def null_weight(x)
       1 - Float(x)
     end
+    
+    # FIXME
+    def all_different?
+      @options.keys.uniq ==  @options.keys 
+    end
+    
+    # FIXME 
+    def all_equal?
+      @options.keys.uniq.count < 2
+    end    
 
 end
