@@ -56,7 +56,7 @@
               %ul.nav.nav-list
                 - @facets.each do |facet|
                   =# 
-                  - if ((facet.options.count < 25 && facet.options.count > 2) or facet.relevance > 0.09) && !(%w[updated_at created_at id filename].include? facet.name) # TODO boost elements...
+                  - if ((facet.options.count < 25 && facet.options.count > 2) || facet.relevance > 0.09) && !(%w[updated_at created_at id filename item_number mfg_part_number].include? facet.name) # TODO boost elements...
                     %li.divider
                       %li.nav-header= "#{facet.name}" 
                       %div.pull-right= " [#{'%5.2f'%(facet.relevance*100.0)}%] " if Rails.env.development?
