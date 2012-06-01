@@ -209,6 +209,13 @@ describe Facet do
     #http://0.0.0.0:4000/cables?insulation=mil-w-22759%2F18+mil-w-22759%2F32&kevlar_core=No&shielding=B
     it "case when all are different, need a boost?"
     
+    # FIXME
+    it "should display color options!"
+    #http://cable-configurator.adrianmejia.com/cables?kevlar_core=No&putup=1000&wire_gauge=22
+    
+    it "should detect colors with slash like White/Black/Green"
+    # White/Black/Green
+    
   end
   
  end
