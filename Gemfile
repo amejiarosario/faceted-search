@@ -11,9 +11,12 @@ gem 'haml-rails'
 
 gem 'thin'
 gem 'pg'
-gem 'devise'
 gem 'will_paginate'
+
+# Authentication/Auth/Roles
+gem 'devise'
 gem 'cancan'
+gem 'rolify'
 
 group :development, :test do
   gem 'rspec-rails'
