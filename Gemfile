@@ -13,7 +13,7 @@ gem 'thin'
 gem 'pg'
 gem 'devise'
 gem 'will_paginate'
-
+gem 'cancan'
 
 group :development, :test do
   gem 'rspec-rails'
