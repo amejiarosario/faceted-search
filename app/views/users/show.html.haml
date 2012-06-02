@@ -1,0 +1,4 @@
+%h2= @user.email
+
+%p= "Email: #{@user.email}"
+%p= "Role: #{@user.roles.map(&:name)}"

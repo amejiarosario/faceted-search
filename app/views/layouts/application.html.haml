@@ -26,7 +26,7 @@
           .container.nav-collapse
             %ul.nav
               %li= link_to "Cable List", "/cables"
-              /%li= link_to "Link 2", "/path2"
+              %li= link_to "Users", "/users"
               /%li= link_to "Link 3", "/path3"
             %ul.nav.pull-right
               - if user_signed_in?
@@ -69,22 +69,17 @@
           -# DONE implement faceted search similiar to amazon & test first
           -# DONE devise test and login http://railscasts.com/episodes/209-introducing-devise?view=asciicast
           
-          - if notice or flash.key? :notice
+          - if flash.key? :notice
             .alert.alert-info
               %button.close{"data-dismiss" => "alert"} x
-              =#%h4.alert-heading Notice:
-              =#%strong= notice if notice
-              %strong= flash[:notice] if flash.key? :notice
-          - if alert or flash.key? :alert
+              %strong= flash[:notice]
+          - if flash.key? :alert
             .alert.alert-block
               %button.close{"data-dismiss" => "alert"} x
-              =#%h4.alert-heading Warning:
-              =#%strong= alert if alert
-              %strong= flash[:alert] if flash.key? :alert
+              %strong= flash[:alert]
           - if flash.key? :error
             .alert.alert-error
               %button.close{"data-dismiss" => "alert"} x
-              =#%h4.alert-heading Error(s):
               %strong= flash[:error]
               
           
