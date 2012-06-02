@@ -35,7 +35,8 @@ class CablesController < ApplicationController
   # GET /cables/new.json
   def new
     @cable = Cable.new
-
+    authorize! :create, @cable
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @cable }
@@ -45,12 +46,14 @@ class CablesController < ApplicationController
   # GET /cables/1/edit
   def edit
     @cable = Cable.find(params[:id])
+    authorize! :edit, @cable
   end
 
   # POST /cables
   # POST /cables.json
   def create
     @cable = Cable.new(params[:cable])
+    authorize! :create, @cable
 
     respond_to do |format|
       if @cable.save
@@ -67,7 +70,8 @@ class CablesController < ApplicationController
   # PUT /cables/1.json
   def update
     @cable = Cable.find(params[:id])
-
+    authorize! :update, @cable
+    
     respond_to do |format|
       if @cable.update_attributes(params[:cable])
         format.html { redirect_to @cable, notice: 'Cable was successfully updated.' }
@@ -84,6 +88,7 @@ class CablesController < ApplicationController
   def destroy
     @cable = Cable.find(params[:id])
     @cable.destroy
+    authorize! :destroy, @cable
 
     respond_to do |format|
       format.html { redirect_to cables_url }
