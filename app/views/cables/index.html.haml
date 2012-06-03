@@ -7,10 +7,11 @@
     = submit_tag "Search", name: nil
 
 - if @cables.count < 1
-  %h3=raw "No cable were found with the selected criteria. #{link_to 'Show all!', cables_path}"
+  %h3=raw "No cable were found with the selected criteria. #{link_to 'Reset filters!', cables_path}"
 - else
   - model_class = Cable.new.class
   %h1=t '.title', :default => model_class.model_name.human.pluralize
+  %p=raw "Showing #{@cables.count} cables... #{link_to 'show all', cables_path}"
   %table.table.table-striped
     %thead
       %tr

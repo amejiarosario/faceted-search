@@ -26,7 +26,7 @@
           .container.nav-collapse
             %ul.nav
               %li= link_to "Cable List", "/cables"
-              - if current_user.try(:is_admin?)
+              - if current_user && (current_user.has_role? :admin)
                 %li= link_to "Users Roles", "/users"
               /%li= link_to "Link 3", "/path3"
             %ul.nav.pull-right
@@ -42,7 +42,7 @@
                     %li.divider
                     %li= link_to raw('<i class="icon-off"></i> Logout'), destroy_user_session_path, :method => :delete
               - else
-                %li= link_to "Login", new_user_session_path
+                %li= link_to "Sign in", new_user_session_path
 
 
     .container-fluid
@@ -57,7 +57,7 @@
               %ul.nav.nav-list
                 - @facets.each do |facet|
                   =# 
-                  - if ((facet.options.count < 25 && facet.options.count > 2) || facet.relevance > 0.09) && !(%w[updated_at created_at id filename item_number mfg_part_number].include? facet.name) # TODO boost elements...
+                  - if ((facet.options.count < 20 && facet.options.count > 2) || facet.relevance > 0.09) && !(%w[updated_at created_at id filename item_number mfg_part_number part_type].include? facet.name) # TODO boost elements...
                     %li.divider
                       %li.nav-header= "#{facet.name}" 
                       %div.pull-right= " [#{'%5.2f'%(facet.relevance*100.0)}%] " if Rails.env.development?

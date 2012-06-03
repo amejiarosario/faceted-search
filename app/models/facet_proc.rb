@@ -20,7 +20,7 @@ class FacetProc
         if n.nil? || n.blank?
           options_hash[:blank] += 1
         else
-          options_hash[n] += 1
+          options_hash[n.to_s] += 1
         end
       end
     
