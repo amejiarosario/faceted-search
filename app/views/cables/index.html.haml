@@ -17,17 +17,17 @@
         =#/%th= model_class.human_attribute_name(:id)
         =#/%th= model_class.human_attribute_name(:filename)
         =#/%th= model_class.human_attribute_name(:level)
-        %th=sortable "item_number"
-        %th=sortable "part_type" #model_class.human_attribute_name(:part_type)
-        %th=sortable "mfg_part_number"
-        %th=sortable "item_description"
-        %th=sortable "type"
-        =#/%th= model_class.human_attribute_name(:conductor)
-        =#/%th= model_class.human_attribute_name(:number_pairs)
+        %th= sortable "item_number"
+        =#%th=sortable "part_type" #model_class.human_attribute_name(:part_type)
+        =#%th=sortable "mfg_part_number"
+        %th= sortable "item_description"
+        %th= sortable "type"
+        %th= sortable model_class.human_attribute_name(:conductor)
+        %th= sortable model_class.human_attribute_name(:number_pairs)
         =#/%th= model_class.human_attribute_name(:insulation)
         =#/%th= model_class.human_attribute_name(:jacket)
         =#/%th= model_class.human_attribute_name(:shielding)
-        =#/%th= model_class.human_attribute_name(:wire_gauge)
+        %th= sortable model_class.human_attribute_name(:wire_gauge)
         =#/%th= model_class.human_attribute_name(:diameter)
         =#/%th= model_class.human_attribute_name(:putup)
         =#/%th= model_class.human_attribute_name(:color)
@@ -44,16 +44,16 @@
           =#/%td= cable.filename
           =#/%td= cable.level
           %td= link_to cable.item_number, cable_path(cable)
-          %td= cable.part_type
-          %td= cable.mfg_part_number
+          =#%td= cable.part_type
+          =#%td= cable.mfg_part_number
           %td= cable.item_description
           %td= cable.type
-          =#/%td= cable.conductor
-          =#/%td= cable.number_pairs
+          %td= cable.conductor
+          %td= cable.number_pairs
           =#/%td= cable.insulation
           =#/%td= cable.jacket
           =#/%td= cable.shielding
-          =#/%td= cable.wire_gauge
+          %td= cable.wire_gauge
           =#/%td= cable.diameter
           =#/%td= cable.putup 
           =#/%td= cable.color
