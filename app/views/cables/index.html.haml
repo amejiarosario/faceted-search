@@ -35,7 +35,8 @@
         =#/%th= model_class.human_attribute_name(:kevlar_core)
         =#/%th= model_class.human_attribute_name(:pitch)
         =#/%th= model_class.human_attribute_name(:created_at)
-        %th=t '.actions', :default => t("helpers.actions")
+        - if can? :edit, @cables.first or can? :destroy, @cables.first
+          %th=t '.actions', :default => t("helpers.actions")
     %tbody
       - @cables.each do |cable|
         %tr
@@ -61,12 +62,14 @@
           =#/%td= cable.pitch
           =#/%td=l cable.created_at
           %td
-            = link_to t('.edit', :default => t("helpers.links.edit")), edit_cable_path(cable), :class => 'btn btn-mini'
-            = link_to t('.destroy', :default => t("helpers.links.destroy")), cable_path(cable), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+            -if can? :edit, cable
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_cable_path(cable), :class => 'btn btn-mini'
+            - if can? :destroy, cable
+              = link_to t('.destroy', :default => t("helpers.links.destroy")), cable_path(cable), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
   
   =# FIXME current page lable is not displaying correctly
   = paginate @cables
-  
-  = link_to t('.new', :default => t("helpers.links.new")), new_cable_path, :class => 'btn btn-primary'
+  - if can? :create, @cables.first
+    = link_to t('.new', :default => t("helpers.links.new")), new_cable_path, :class => 'btn btn-primary'
 
 
