@@ -12,7 +12,7 @@ class UsersController < ApplicationController
  
   def update
     @user = User.find(params[:id])
-    autorize! :update, @user
+    authorize! :update, @user
     
     if @user.update_attributes(params[:user])
       redirect_to users_path, notice: 'User was successfully updated.'
