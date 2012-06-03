@@ -27,7 +27,7 @@
             %ul.nav
               %li= link_to "Cable List", "/cables"
               - if current_user.try(:is_admin?)
-                %li= link_to "Users", "/users"
+                %li= link_to "Users Roles", "/users"
               /%li= link_to "Link 3", "/path3"
             %ul.nav.pull-right
               - if user_signed_in?

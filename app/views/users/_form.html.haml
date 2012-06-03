@@ -3,8 +3,18 @@
   .control-group
     = f.label :email, class: 'control-label'
     .controls
-      = f.email_field :email, class: 'text_field', autocomplete: 'off'
-  
+      = f.email_field :email, class: 'text_field', autocomplete: 'off', disabled: "disabled"
+      
+  -# .control-group
+    -# = f.label :password, class: 'control-label'
+    -# .controls
+      -# = f.password_field :password, class: 'text_field', autocomplete: 'off'
+
+  -# .control-group
+    -# = f.label :password_confirm, class: 'control-label'
+    -# .controls
+      -# = f.password_field :password_confirm, class: 'text_field', autocomplete: 'off'
+        
   .control-group
     = f.label :roles, class: 'control-label'
     - Role.all.each do |role|

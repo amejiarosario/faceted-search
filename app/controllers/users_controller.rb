@@ -1,26 +1,21 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
   
   def index
-  end
-  
-  def show
+    @users = User.all
+    authorize! :view, @users.first
   end
   
   def edit
+    @user = User.find(params[:id])
+    authorize! :edit, @user
   end
-  
-  def new
-  end
-  
-  def create
-  end
-  
+ 
   def update
     @user = User.find(params[:id])
+    autorize! :update, @user
     
     if @user.update_attributes(params[:user])
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to users_path, notice: 'User was successfully updated.'
     else
       render action: 'edit'
     end
@@ -28,6 +23,7 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find(params[:id])
+    authorize! :destroy, @user
     @user.destroy
     redirect_to users_path
   end

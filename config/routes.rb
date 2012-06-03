@@ -1,7 +1,7 @@
 FacetedSearch::Application.routes.draw do
   devise_for :users
   
-  resources :users, except: [:new, :create]
+  resources :users, only: [:index, :edit, :update, :destroy]
   
   resources :cables
 

@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   # assign default role (:member)
-  after_create :assign_role
+  after_save :assign_role
   
   private
     def assign_role
