@@ -1,36 +1,16 @@
 = form_for @user, html: {class: 'form-horizontal'} do |f|
-  
+
   .control-group
     = f.label :email, class: 'control-label'
     .controls
       = f.email_field :email, class: 'text_field', autocomplete: 'off'
-
-  .control-group
-    = f.label :password, class: 'control-label'
-    .controls
-      = f.password_field :password, class: 'text_field', autocomplete: 'off'
-
-  .control-group
-    = f.label :password_confirm, class: 'control-label'
-    .controls
-      = f.password_field :password_confirm, class: 'text_field', autocomplete: 'off'
   
-  -# %p Roles
-  =# fields_for @user.roles do |role_f|
   .control-group
     = f.label :roles, class: 'control-label'
     - Role.all.each do |role|
       .controls
-        = check_box_tag "user[roles][]", role.name, (@user.roles.map(&:name).include? role.name)
+        = check_box_tag "user[role_ids][]", role.id, (@user.roles.map(&:name).include? role.name)
         = role.name.titleize
-      
-  -# .control-group
-    -# = f.label :roles, class: 'control-label'
-    -# .controls
-      -# %fieldset.roles
-        -# - Role.all.each do |role|
-          -# =# label_tag "user_role_"+role.name
-          -# = f.check_box role.name  
       
   .form-actions
     = f.submit nil, class: 'btn btn-primary'
