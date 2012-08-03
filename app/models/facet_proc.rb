@@ -21,7 +21,7 @@ class FacetProc
         end
       end
     
-      f.options = options_hash #.sort {|a,b| a[1] <=> b[1] } #sort by value #TODO sort by value
+      f.options = Hash[options_hash.sort_by{|k,v| k.to_s}]
       if block_given?
         relevances = {}
         yield relevances
