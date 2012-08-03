@@ -7,9 +7,6 @@ class FacetProc
     model.column_names.each do |column|
       f = Facet.new(column)
       
-      #options names
-      # DONE don't use model to select options... use the object! (in case is a subset)
-      
       options = objs.map { |c| c.send(column)}
         .delete_if { |n| n.nil? || n.blank? } # TODO count blank elements as any other category...
 
@@ -25,6 +22,14 @@ class FacetProc
       end
     
       f.options = options_hash #.sort {|a,b| a[1] <=> b[1] } #sort by value #TODO sort by value
+      if block_given?
+        relevances = {}
+        yield relevances
+        if relevances.keys.include? column.to_sym
+          f.relevance = relevances[column.to_sym]
+        end
+      end
+      
       arr << f
     end
     #arr.sort {|a,b| b.relevance <=> a.relevance} #works fine btw

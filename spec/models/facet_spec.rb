@@ -56,6 +56,14 @@ describe Facet do
         prev_rel = facet.relevance
       end
     end
+    
+    it "should accept arbitrary relevance values given in a block" do
+      facets = FacetProc.calculate(Cable.all) do |f|
+        f[:part_type] = 777
+      end
+      facets.select{|p| p.name == 'part_type'}.first.relevance.should be_within(0.2).of(777)
+      facets.first.name.should eq 'part_type'
+    end
   end
   
   describe "Facet Objects" do
@@ -217,5 +225,4 @@ describe Facet do
     # White/Black/Green
     
   end
-  
  end

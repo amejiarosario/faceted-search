@@ -57,9 +57,9 @@
               %ul.nav.nav-list
                 - @facets.each do |facet|
                   =# 
-                  - if ((facet.options.count < 20 && facet.options.count > 2) || facet.relevance > 0.09) && !(%w[updated_at created_at id filename item_number mfg_part_number part_type].include? facet.name) # TODO boost elements...
+                  - if ((facet.options.count < 20 && facet.options.count > 2)) && !(%w[updated_at created_at id filename item_number mfg_part_number part_type].include? facet.name)
                     %li.divider
-                      %li.nav-header= "#{facet.name}" 
+                      %li.nav-header= "#{facet.name.titleize}" 
                       %div.pull-right= " [#{'%5.2f'%(facet.relevance*100.0)}%] " if Rails.env.development?
                       - facet.options.each do |category, times|             
                         %li= link_to "#{category} (#{times})", params.merge(facet.name.to_sym => category) unless (category == :total or category == "updated_at")
@@ -89,6 +89,9 @@
       %footer
         %p=# &copy; Company 2012
         
+        - if defined?(Footnotes) && Rails.env.development?
+          = Footnotes.run!
+
         - if Rails.env.development?
           %hr
           = debug(params)       
@@ -111,6 +114,4 @@
           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-    
-    
-
+

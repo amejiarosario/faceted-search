@@ -24,6 +24,10 @@ group :development, :test do
   gem 'ruby-debug19'
 end
 
+group :development do
+  gem 'rails-footnotes'
+end
+
 group :test do
   gem 'rspec'
   gem 'guard-rspec'

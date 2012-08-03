@@ -10,7 +10,9 @@ class CablesController < ApplicationController
       .order(sort_column + ' ' + sort_direction)
       .where(sort_facet)
     
-    @facets = FacetProc.calculate(@cables)
+    @facets = FacetProc.calculate(@cables) do |column_relevancy|
+      column_relevancy[:type] = 1
+    end
     
     @cables = @cables.paginate(per_page: 25, page: params[:page])
     
