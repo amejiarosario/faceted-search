@@ -7,7 +7,7 @@ class Cable < ActiveRecord::Base
   
   def self.search(search)
     if search
-      where('item_description LIKE ? OR item_number LIKE ? OR type LIKE ? OR number_pairs LIKE ? OR conductor LIKE ? OR wire_gauge LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      where('item_description ILIKE ? OR item_number ILIKE ? OR type ILIKE ? OR number_pairs ILIKE ? OR conductor ILIKE ? OR wire_gauge ILIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       scoped
     end
