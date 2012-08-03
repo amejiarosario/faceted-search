@@ -9,10 +9,10 @@
     /[if lt IE 9]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
     = stylesheet_link_tag "application", :media => "all"
-    %link(href="images/favicon.ico" rel="shortcut icon")
-    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon")
-    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72")
-    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
+    %link(href="assets/favicon.ico" rel="shortcut icon")
+    =# %link(href="images/apple-touch-icon.png" rel="apple-touch-icon")
+    =# %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72")
+    =# %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114")
 
   %body
     .navbar.navbar-fixed-top
@@ -88,9 +88,6 @@
     
       %footer
         %p=# &copy; Company 2012
-        
-        - if defined?(Footnotes) && Rails.env.development?
-          = Footnotes.run!
 
         - if Rails.env.development?
           %hr

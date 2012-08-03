@@ -17,4 +17,8 @@ namespace :cables do
     end
   end
   
+  desc "delete all the cables"
+  task :delete_all => :environment  do
+    Cable.destroy_all
+  end
 end
