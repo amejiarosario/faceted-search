@@ -1,0 +1,13 @@
+- hidden = false
+- @facets.each do |facet|
+	- if facet.options.count > 2 && !(%w[updated_at created_at id filename item_number mfg_part_number part_type item_description].include? facet.name)
+		- if !hidden && facet.relevance < 0.01
+			- hidden = true
+			%li.divider
+				%li.nav-header= link_to "show/hide other filters", "javascript:void(0)", onclick: "$('.js_hide').slideToggle()"
+		%div{class: "#{ hidden ? "js_hide" : "" }"}
+			%li.divider
+				%li.nav-header= "#{facet.name.titleize}" 
+				%div.pull-right= " [#{'%5.4f'%(facet.relevance)}] " if Rails.env.development?
+				- facet.options.each do |category, times|							
+					%li= link_to "#{category} (#{times})", params.merge(facet.name.to_sym => category) unless (category == :total or category == "updated_at")
