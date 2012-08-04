@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602174829) do
+ActiveRecord::Schema.define(:version => 20120804220404) do
 
   create_table "cables", :force => true do |t|
     t.string   "filename"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(:version => 20120602174829) do
     t.string   "item_description"
     t.string   "type"
     t.string   "conductor"
-    t.string   "number_pairs"
     t.string   "insulation"
     t.string   "jacket"
     t.string   "shielding"
@@ -35,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120602174829) do
     t.string   "pitch"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "number_pairs"
   end
 
   create_table "facets", :force => true do |t|

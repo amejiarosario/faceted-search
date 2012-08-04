@@ -57,7 +57,7 @@
               %ul.nav.nav-list
                 - @facets.each do |facet|
                   =# 
-                  - if ((facet.options.count < 20 && facet.options.count > 2)) && !(%w[updated_at created_at id filename item_number mfg_part_number part_type].include? facet.name)
+                  - if ((facet.options.count < 20 && facet.options.count > 2)) && !(%w[updated_at created_at id filename item_number mfg_part_number part_type item_description].include? facet.name)
                     %li.divider
                       %li.nav-header= "#{facet.name.titleize}" 
                       %div.pull-right= " [#{'%5.2f'%(facet.relevance*100.0)}%] " if Rails.env.development?

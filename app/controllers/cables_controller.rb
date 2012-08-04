@@ -108,6 +108,13 @@ class CablesController < ApplicationController
     end
     
     def sort_facet
-      params.select{|k,v| Cable.column_names.include? k.to_s }
+      q = params.select{ |k,v| Cable.column_names.include? k.to_s }
+      
+      # number the pairs exception: returns number of pairs up to 3 more than the selected.
+      if (number_pairs = q.delete 'number_pairs')
+        q = q.map{|k,v| "#{k} = '#{v}'"}
+        q << "number_pairs >= #{number_pairs.to_s} AND number_pairs <= #{(number_pairs.to_i + 3)}"
+        q.join ' AND '
+      end
     end
 end
