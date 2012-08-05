@@ -10,8 +10,6 @@ class CablesController < ApplicationController
       .order(sort_column + ' ' + sort_direction)
       .where(sort_facet)
     
-    @params = params
-    
     @facets = FacetProc.calculate(@cables) do |column_relevancy|
       column_relevancy[:type] = 1
     end
