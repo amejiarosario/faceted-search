@@ -3,14 +3,21 @@ $(function(){
 	if(url){
 		var base_url = url[1];
 		var query_url = url[2].split("&");
-		var non_token = ["sort", "direction"];
+		var non_token = ["sort", "direction", "utf8"];
 
 		for(f in query_url){
 			filter = query_url[f];
-			if(!(filter.indexOf('sort')>=0 || filter.indexOf('direction')>=0)){
-				//$('.token-input-list').append(token_html(filter));	
-				$('#facet-filters-tokens').append(token_html(filter));
+			var skip = false;
+			
+			for(t in non_token){
+				if(filter.indexOf(non_token[t]) >= 0){
+					skip = true;
+				}
 			}
+			if(skip){
+				continue;
+			}
+			$('#facet-filters-tokens').append(token_html(filter));
 		}
 
 		$('.token-input-delete-token-mac').on('click', function(){

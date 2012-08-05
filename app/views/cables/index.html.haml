@@ -1,6 +1,9 @@
 = form_tag cables_path, method: 'get', class: 'well form-search' do
 	= hidden_field_tag :direction, params[:direction]
 	= hidden_field_tag :sort, params[:sort]
+	- params.each do |k,v|
+		- if Cable.column_names.include? k
+			= hidden_field_tag k.to_sym, params[k]
 	%p
 		=# label_tag :search, "Search by Item Description:"
 		= text_field_tag :search, params[:search], placeholder: "search by description, item no., type, number of pairs, ...", class: "input-large search-query"
