@@ -14,7 +14,7 @@
         -# %td= link_to user.email, user_path(user.id)
         %td= user.email
         %td= user.roles.map(&:name).join(", ")
-        %td= user.last_sign_in_at.localtime.strftime('%d/%b/%Y %I:%M:%S %P')
+        %td= user.last_sign_in_at.try(:localtime).try(:strftime, '%d/%b/%Y %I:%M:%S %P')
         %td= user.last_sign_in_ip
         %td
           = link_to "edit roles", edit_user_path(user.id), class: "btn btn-mini"
